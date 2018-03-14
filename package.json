@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "ajv": "^6.2.0",
+    "firebase": "^4.11.0",
     "nuxt": "^1.0.0",
     "vuetify": "^1.0.0"
   },

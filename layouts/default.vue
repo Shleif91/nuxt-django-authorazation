@@ -36,6 +36,16 @@
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
+        v-for="(item, i) in topMenuItems"
+        :key="i"
+        :to="item.to"
+        class="primary"
+        round
+      >
+        <v-icon left>{{ item.icon }}</v-icon>
+        {{ item.title }}
+      </v-btn>
+      <v-btn
         icon
         @click.stop="rightDrawer = !rightDrawer"
       >
@@ -66,6 +76,8 @@
 </template>
 
 <script>
+  import * as firebase from 'firebase'
+
   export default {
     data () {
       return {
@@ -79,6 +91,33 @@
         right: true,
         rightDrawer: false,
         title: 'CargDel'
+      }
+    },
+    computed: {
+      topMenuItems () {
+        let items = []
+        if (this.isGuest) {
+          items = [
+            { icon: 'account_circle', title: 'Signup', to: '/signup' },
+            { icon: 'input', title: 'Signin', to: '/signin' }
+          ]
+        }
+
+        return items
+      },
+      isGuest () {
+        return this.$store.getters.user === null || this.$store.getters.user === undefined
+      }
+    },
+    created () {
+      if (!firebase.apps.length) {
+        firebase.initializeApp({
+          apiKey: 'AIzaSyAkL1TtuenwTRjZHncEKWMgYZ-To2IrsF4',
+          authDomain: 'testfirebase-99821.firebaseapp.com',
+          databaseURL: 'https://testfirebase-99821.firebaseio.com',
+          projectId: 'testfirebase-99821',
+          storageBucket: 'testfirebase-99821.appspot.com'
+        })
       }
     }
   }
