@@ -62,7 +62,6 @@ export const actions = {
       .catch(error => {
         commit('setLoading', false)
         commit('setError', error)
-        console.log(error)
       })
   },
   signUserIn ({commit}, payload) {
@@ -79,10 +78,18 @@ export const actions = {
       .catch(error => {
         commit('setLoading', false)
         commit('setError', error)
-        console.log(error)
       })
   },
   clearError ({commit}) {
     commit('clearError')
+  },
+  signUserOut ({commit}) {
+    firebase.auth().signOut()
+      .then(() => {
+        commit('setUser', null)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 }

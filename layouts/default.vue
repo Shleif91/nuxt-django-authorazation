@@ -46,6 +46,15 @@
         {{ item.title }}
       </v-btn>
       <v-btn
+        class="primary"
+        round
+        @click="signUserOut"
+        v-if="!isGuest"
+      >
+        <v-icon left>eject</v-icon>
+        Log out
+      </v-btn>
+      <v-btn
         icon
         @click.stop="rightDrawer = !rightDrawer"
       >
@@ -118,6 +127,11 @@
           projectId: 'testfirebase-99821',
           storageBucket: 'testfirebase-99821.appspot.com'
         })
+      }
+    },
+    methods: {
+      signUserOut () {
+        return this.$store.dispatch('signUserOut')
       }
     }
   }
