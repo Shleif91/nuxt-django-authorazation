@@ -32,7 +32,7 @@
                 </v-layout>
                 <v-layout row>
                   <v-flex xs-12>
-                    <v-btn type="submit">Sign in</v-btn>
+                    <v-btn type="submit" class="primary">Sign in</v-btn>
                   </v-flex>
                 </v-layout>
               </form>

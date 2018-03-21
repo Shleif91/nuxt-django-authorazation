@@ -23,7 +23,7 @@
             </v-card-actions>
           </v-card>
         </nuxt-link>
-      </v-flex>S
+      </v-flex>
       <v-flex xs-12>
         <div class="text-xs-center">
           <v-pagination :length="totalPages" v-model="page" :total-visible="7"></v-pagination>
@@ -41,21 +41,13 @@
         perPage: 5
       }
     },
-    asyncData () {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve({
-            totalPages: 2,
-            orders: [
-              {id: 1, title: 'Яблоки срочно', cityFrom: 'Минск', cityWhere: 'Москва', cargo: 'Яблоки'},
-              {id: 2, title: 'Окна срочно', cityFrom: 'Москва', cityWhere: 'Минск', cargo: 'Окна'},
-              {id: 3, title: 'Окна срочно', cityFrom: 'Москва', cityWhere: 'Минск', cargo: 'Окна'},
-              {id: 4, title: 'Окна срочно', cityFrom: 'Москва', cityWhere: 'Минск', cargo: 'Окна'},
-              {id: 5, title: 'Окна срочно', cityFrom: 'Москва', cityWhere: 'Минск', cargo: 'Окна'}
-            ]
-          })
-        }, 1000)
-      })
+    computed: {
+      orders () {
+        return this.$store.getters.orders
+      },
+      totalPages () {
+        return this.$store.getters.totalPages
+      }
     }
   }
 </script>
