@@ -131,7 +131,8 @@
     },
     methods: {
       signUserOut () {
-        return this.$store.dispatch('signUserOut')
+        this.$store.dispatch('signUserOut')
+        this.$router.push('/signin')
       }
     }
   }
