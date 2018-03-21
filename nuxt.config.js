@@ -1,8 +1,5 @@
 
 module.exports = {
-  /*
-  ** Headers of the page
-  */
   head: {
     title: 'transportation',
     meta: [
@@ -15,8 +12,28 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
     ]
   },
+  router: {
+    middleware: 'auth'
+  },
+  axios: {
+    proxy: true
+  },
+  proxy: {
+    '/api': 'http://localhost:8000'
+  },
+  env: {
+    DEV_API: 'http://localhost:8000',
+    PROD_API: 'http://localhost',
+    SIGN_IN_PATH: '/',
+    SIGN_UP_PATH: '/auth/registration/',
+    SIGN_OUT_PATH: '/',
+    RESTORE_PASSWORD_PATH: '/'
+  },
   plugins: [
     '~/plugins/vuetify.js'
+  ],
+  modules: [
+    '@nuxtjs/axios'
   ],
   css: [
     '~/assets/style/app.styl'
@@ -46,8 +63,5 @@ module.exports = {
         })
       }
     }
-  },
-  router: {
-    middleware: 'auth'
   }
 }

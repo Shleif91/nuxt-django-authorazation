@@ -51,7 +51,23 @@ export const actions = {
   signUserUp ({commit}, payload) {
     commit('setLoading', true)
     commit('clearError')
-    firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+    // firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+    //   .then(user => {
+    //     commit('setLoading', false)
+    //     const newUser = {
+    //       id: user.uid
+    //     }
+    //     commit('setUser', newUser)
+    //   })
+    //   .catch(error => {
+    //     commit('setLoading', false)
+    //     commit('setError', error)
+    //   })
+    let url = '/api' + process.env.SIGN_UP_PATH
+    this.$axios.post(url, {
+      email: payload.email,
+      password: payload.password
+    }, {crossdomain: true})
       .then(user => {
         commit('setLoading', false)
         const newUser = {
