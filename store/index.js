@@ -23,6 +23,12 @@ export const getters = {
   },
   totalPages (state) {
     return state.totalPages
+  },
+  loading (state) {
+    return state.loading
+  },
+  error (state) {
+    return state.error
   }
 }
 
@@ -75,5 +81,8 @@ export const actions = {
         commit('setError', error)
         console.log(error)
       })
+  },
+  clearError ({commit}) {
+    commit('clearError')
   }
 }

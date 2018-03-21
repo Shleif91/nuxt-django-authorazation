@@ -1,7 +1,12 @@
 <template>
   <v-container>
+    <v-layout row v-if="error">
+      <v-flex xs12 sm8 offset-sm2>
+        <alert @dismissed="onDismissed" :text="error.message"></alert>
+      </v-flex>
+    </v-layout>
     <v-layout row>
-      <v-flex xs-12 sm-6 offset-sm-3>
+      <v-flex xs12 sm8 offset-sm2>
         <v-card>
           <v-card-text>
             <v-container>
@@ -32,7 +37,12 @@
                 </v-layout>
                 <v-layout row>
                   <v-flex xs-12>
-                    <v-btn type="submit" class="primary">Sign in</v-btn>
+                    <v-btn type="submit" class="primary" :disabled="loading" :loading="loading">
+                      Sign in
+                      <span slot="loader" class="custom-loader">
+                        <v-icon light>cached</v-icon>
+                      </span>
+                    </v-btn>
                   </v-flex>
                 </v-layout>
               </form>
@@ -45,7 +55,12 @@
 </template>
 
 <script>
+  import Alert from '@/components/Shared/Alert'
+
   export default {
+    components: {
+      Alert
+    },
     data () {
       return {
         email: '',
@@ -55,6 +70,12 @@
     computed: {
       user () {
         return this.$store.getters.user
+      },
+      error () {
+        return this.$store.getters.error
+      },
+      loading () {
+        return this.$store.getters.loading
       }
     },
     watch: {
@@ -70,6 +91,9 @@
           email: this.email,
           password: this.password
         })
+      },
+      onDismissed () {
+        this.$store.dispatch('clearError')
       }
     }
   }
