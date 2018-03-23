@@ -14,12 +14,30 @@
                 <v-layout row>
                   <v-flex xs-12>
                     <v-text-field
+                      name="username"
+                      label="Login"
+                      id="username"
+                      v-model="username"
+                      type="string"
+                      :rules="[rules.required]"
+                      :error="errors.username.length > 0"
+                      :error-messages="errors.username"
+                      @focus="errors.username = []"
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
+                <v-layout row>
+                  <v-flex xs-12>
+                    <v-text-field
                       name="email"
                       label="Email"
                       id="email"
                       v-model="email"
                       type="email"
-                      required
+                      :rules="[rules.required]"
+                      :error="errors.email.length > 0"
+                      :error-messages="errors.email"
+                      @focus="errors.email = []"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -31,7 +49,10 @@
                       id="password"
                       v-model="password"
                       type="password"
-                      required
+                      :rules="[rules.required]"
+                      :error="errors.password.length > 0"
+                      :error-messages="errors.password"
+                      @focus="errors.password = []"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -43,7 +64,10 @@
                       id="confirmPassword"
                       v-model="confirmPassword"
                       type="password"
-                      :rules="[comparePasswords]"
+                      :rules="[rules.required, rules.comparePasswords]"
+                      :error="errors.confirmPassword.length > 0"
+                      :error-messages="errors.confirmPassword"
+                      @focus="errors.confirmPassword = []"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -75,15 +99,27 @@
     },
     data () {
       return {
+        username: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        errors: {
+          username: [],
+          email: [],
+          password: [],
+          confirmPassword: []
+        },
+        rules: {
+          required: (value) => !!value || 'Required.',
+          email: (value) => {
+            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            return pattern.test(value) || 'Invalid e-mail.'
+          },
+          comparePasswords: (value) => value === this.password || 'Passwords do not match'
+        }
       }
     },
     computed: {
-      comparePasswords () {
-        return this.password !== this.confirmPassword ? 'Passwords do not match' : ''
-      },
       user () {
         return this.$store.getters.user
       },
@@ -99,13 +135,28 @@
         if (value !== null && value !== undefined) {
           this.$router.push('/')
         }
+      },
+      error (values) {
+        if (values !== null) {
+          for (let value in values.response.data) {
+            if (value === 'password1') {
+              this.errors.password = values.response.data[value]
+            } else if (value === 'password2') {
+              this.errors.confirmPassword = values.response.data[value]
+            } else {
+              this.errors[value] = values.response.data[value]
+            }
+          }
+        }
       }
     },
     methods: {
       onSignup () {
         this.$store.dispatch('signUserUp', {
+          username: this.username,
           email: this.email,
-          password: this.password
+          password: this.password,
+          confirmPassword: this.confirmPassword
         })
       },
       onDismissed () {
