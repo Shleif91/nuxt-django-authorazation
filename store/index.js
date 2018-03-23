@@ -41,47 +41,37 @@ export const mutations = {
 
 export const actions = {
   signUserUp ({commit}, payload) {
-    let useFirebase = false
     commit('setLoading', true)
     commit('clearError')
-    if (useFirebase) {
-      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
-        .then(user => {
-          commit('setLoading', false)
-          const newUser = {
-            id: user.uid
-          }
-          commit('setUser', newUser)
-        })
-        .catch(error => {
-          commit('setLoading', false)
-          commit('setError', error)
-        })
-    } else {
-      let url = '/api' + process.env.SIGN_UP_PATH
-      this.$axios.post(url, {
-        username: payload.username,
-        email: payload.email,
-        password1: payload.password,
-        password2: payload.confirmPassword
+
+    let url = '/api' + process.env.SIGN_UP_PATH
+    this.$axios.post(url, {
+      username: payload.username,
+      email: payload.email,
+      password1: payload.password,
+      password2: payload.confirmPassword
+    })
+      .then(user => {
+        commit('setLoading', false)
+        const newUser = {
+          id: user.uid
+        }
+        commit('setUser', newUser)
       })
-        .then(user => {
-          commit('setLoading', false)
-          const newUser = {
-            id: user.uid
-          }
-          commit('setUser', newUser)
-        })
-        .catch(error => {
-          commit('setLoading', false)
-          commit('setError', error)
-        })
-    }
+      .catch(error => {
+        commit('setLoading', false)
+        commit('setError', error)
+      })
   },
   signUserIn ({commit}, payload) {
     commit('setLoading', true)
     commit('clearError')
-    firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+
+    let url = '/api' + process.env.SIGN_IN_PATH
+    this.$axios.post(url, {
+      username: payload.username,
+      password: payload.password
+    })
       .then(user => {
         commit('setLoading', false)
         const newUser = {

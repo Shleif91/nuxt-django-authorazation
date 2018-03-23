@@ -22,9 +22,7 @@ module.exports = {
     '/api': 'http://localhost:8000'
   },
   env: {
-    DEV_API: 'http://localhost:8000',
-    PROD_API: 'http://localhost',
-    SIGN_IN_PATH: '/',
+    SIGN_IN_PATH: '/auth/login/',
     SIGN_UP_PATH: '/auth/registration/',
     SIGN_OUT_PATH: '/',
     RESTORE_PASSWORD_PATH: '/'

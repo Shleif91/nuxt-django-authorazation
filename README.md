@@ -1,7 +1,3 @@
-# transportation
-
-> Cargo transportation
-
 ## Build Setup
 
 ``` bash

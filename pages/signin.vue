@@ -14,12 +14,15 @@
                 <v-layout row>
                   <v-flex xs-12>
                     <v-text-field
-                      name="email"
-                      label="Email"
-                      id="email"
-                      v-model="email"
-                      type="email"
-                      required
+                      name="username"
+                      label="Login"
+                      id="username"
+                      v-model="username"
+                      type="Test"
+                      :rules="[rules.required]"
+                      :error="errors.username.length > 0"
+                      :error-messages="errors.username"
+                      @focus="errors.username = []"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -31,7 +34,10 @@
                       id="password"
                       v-model="password"
                       type="password"
-                      required
+                      :rules="[rules.required]"
+                      :error="errors.password.length > 0"
+                      :error-messages="errors.password"
+                      @focus="errors.password = []"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -63,8 +69,15 @@
     },
     data () {
       return {
-        email: '',
-        password: ''
+        username: '',
+        password: '',
+        errors: {
+          username: [],
+          password: []
+        },
+        rules: {
+          required: (value) => !!value || 'Required.'
+        }
       }
     },
     computed: {
@@ -83,12 +96,20 @@
         if (value !== null && value !== undefined) {
           this.$router.push('/')
         }
+      },
+      error (values) {
+        console.log(values.response.data)
+        if (values !== null) {
+          for (let value in values.response.data) {
+            this.errors[value] = values.response.data[value]
+          }
+        }
       }
     },
     methods: {
       onSignin () {
         this.$store.dispatch('signUserIn', {
-          email: this.email,
+          username: this.username,
           password: this.password
         })
       },
