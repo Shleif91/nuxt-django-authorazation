@@ -1,10 +1,5 @@
 <template>
   <v-container>
-    <v-layout row v-if="error">
-      <v-flex xs12 sm8 offset-sm2>
-        <alert @dismissed="onDismissed" :text="error.message"></alert>
-      </v-flex>
-    </v-layout>
     <v-layout row>
       <v-flex xs12 sm8 offset-sm2>
         <v-card>

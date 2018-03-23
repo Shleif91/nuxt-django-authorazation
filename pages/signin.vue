@@ -2,7 +2,12 @@
   <v-container>
     <v-layout row v-if="error">
       <v-flex xs12 sm8 offset-sm2>
-        <alert @dismissed="onDismissed" :text="error.message"></alert>
+        <alert
+          @dismissed="onDismissed"
+          :text="message"
+          v-for="message in errors.non_field_errors"
+          :key="Math.random().toString(10).substr(2, 6)"
+        ></alert>
       </v-flex>
     </v-layout>
     <v-layout row>
@@ -73,7 +78,8 @@
         password: '',
         errors: {
           username: [],
-          password: []
+          password: [],
+          non_field_errors: []
         },
         rules: {
           required: (value) => !!value || 'Required.'
@@ -98,7 +104,6 @@
         }
       },
       error (values) {
-        console.log(values.response.data)
         if (values !== null) {
           for (let value in values.response.data) {
             this.errors[value] = values.response.data[value]
