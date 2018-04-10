@@ -3,6 +3,10 @@ export default function ({ store, redirect, route }) {
     return null
   }
 
+  if (route.path.includes('/verify/')) {
+    return null
+  }
+
   if (!store.getters.user) {
     return redirect('/signin')
   }

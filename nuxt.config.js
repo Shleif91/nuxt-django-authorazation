@@ -24,7 +24,8 @@ module.exports = {
   env: {
     SIGN_IN_PATH: '/auth/login/',
     SIGN_UP_PATH: '/auth/registration/',
-    SIGN_OUT_PATH: '/',
+    SIGN_OUT_PATH: '/auth/logout/',
+    VERIFY_EMAIL_PATH: '/auth/registration/verify-email/',
     RESTORE_PASSWORD_PATH: '/'
   },
   plugins: [

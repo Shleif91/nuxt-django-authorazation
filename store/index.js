@@ -1,5 +1,3 @@
-import * as firebase from 'firebase'
-
 export const state = () => ({
   user: null,
   loading: false,
@@ -53,10 +51,6 @@ export const actions = {
     })
       .then(user => {
         commit('setLoading', false)
-        const newUser = {
-          id: user.uid
-        }
-        commit('setUser', newUser)
       })
       .catch(error => {
         commit('setLoading', false)
@@ -88,12 +82,35 @@ export const actions = {
     commit('clearError')
   },
   signUserOut ({commit}) {
-    firebase.auth().signOut()
+    commit('setLoading', true)
+    commit('clearError')
+
+    let url = '/api' + process.env.SIGN_OUT_PATH
+    this.$axios.post(url)
       .then(() => {
+        commit('setLoading', false)
         commit('setUser', null)
       })
       .catch(error => {
-        console.log(error)
+        commit('setLoading', false)
+        commit('setError', error)
+      })
+  },
+  verifyEmail ({commit}, payload) {
+    commit('setLoading', true)
+    commit('clearError')
+
+    let url = '/api' + process.env.VERIFY_EMAIL_PATH
+    this.$axios.post(url, {
+      key: payload.key
+    })
+      .then(() => {
+        commit('setLoading', false)
+        this.$router.push('/')
+      })
+      .catch(error => {
+        commit('setLoading', false)
+        commit('setError', error)
       })
   }
 }
