@@ -112,5 +112,22 @@ export const actions = {
         commit('setLoading', false)
         commit('setError', error)
       })
+  },
+  restorePassword ({commit}, payload) {
+    commit('setLoading', true)
+    commit('clearError')
+
+    let url = '/api' + process.env.RESTORE_PASSWORD_PATH
+    this.$axios.post(url, {
+      email: payload.email
+    })
+      .then(() => {
+        commit('setLoading', false)
+        this.$router.push('/')
+      })
+      .catch(error => {
+        commit('setLoading', false)
+        commit('setError', error)
+      })
   }
 }

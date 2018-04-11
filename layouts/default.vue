@@ -85,8 +85,6 @@
 </template>
 
 <script>
-  import * as firebase from 'firebase'
-
   export default {
     data () {
       return {
@@ -116,17 +114,6 @@
       },
       isGuest () {
         return this.$store.getters.user === null || this.$store.getters.user === undefined
-      }
-    },
-    created () {
-      if (!firebase.apps.length) {
-        firebase.initializeApp({
-          apiKey: 'AIzaSyAkL1TtuenwTRjZHncEKWMgYZ-To2IrsF4',
-          authDomain: 'testfirebase-99821.firebaseapp.com',
-          databaseURL: 'https://testfirebase-99821.firebaseio.com',
-          projectId: 'testfirebase-99821',
-          storageBucket: 'testfirebase-99821.appspot.com'
-        })
       }
     },
     methods: {

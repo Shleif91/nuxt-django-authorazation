@@ -56,6 +56,11 @@
                     </v-btn>
                   </v-flex>
                 </v-layout>
+                <v-layout row>
+                  <v-flex xs6 mt-2>
+                    <router-link to="/restore-password">Restore password</router-link>
+                  </v-flex>
+                </v-layout>
               </form>
             </v-container>
           </v-card-text>
