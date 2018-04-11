@@ -3,7 +3,15 @@ export default function ({ store, redirect, route }) {
     return null
   }
 
-  if (route.path.includes('/verify/') || route.path === '/restore-password') {
+  if (route.path.includes('/verify/')) {
+    return null
+  }
+
+  if (route.path === '/restore-password') {
+    return null
+  }
+
+  if (route.path.includes('/reset/')) {
     return null
   }
 

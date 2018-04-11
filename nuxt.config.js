@@ -26,7 +26,8 @@ module.exports = {
     SIGN_UP_PATH: '/auth/registration/',
     SIGN_OUT_PATH: '/auth/logout/',
     VERIFY_EMAIL_PATH: '/auth/registration/verify-email/',
-    RESTORE_PASSWORD_PATH: '/auth/password/reset/'
+    RESTORE_PASSWORD_PATH: '/auth/password/reset/',
+    RESTORE_PASSWORD_CONFIRM_PATH: '/auth/password/reset/confirm/'
   },
   plugins: [
     '~/plugins/vuetify.js'

@@ -18,6 +18,7 @@
     "vuetify": "^1.0.0"
   },
   "devDependencies": {
+    "ava": "^0.25.0",
     "babel-eslint": "^7.2.3",
     "eslint": "^4.3.0",
     "eslint-config-standard": "^10.2.1",
@@ -27,6 +28,7 @@
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
+    "jsdom": "^11.7.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1"
   }

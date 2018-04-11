@@ -129,5 +129,25 @@ export const actions = {
         commit('setLoading', false)
         commit('setError', error)
       })
+  },
+  restorePasswordConfirm ({commit}, payload) {
+    commit('setLoading', true)
+    commit('clearError')
+
+    let url = '/api' + process.env.RESTORE_PASSWORD_CONFIRM_PATH
+    this.$axios.post(url, {
+      uid: payload.uid,
+      token: payload.token,
+      new_password1: payload.new_password1,
+      new_password2: payload.new_password2
+    })
+      .then(() => {
+        commit('setLoading', false)
+        this.$router.push('/')
+      })
+      .catch(error => {
+        commit('setLoading', false)
+        commit('setError', error)
+      })
   }
 }
