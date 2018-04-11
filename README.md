@@ -1,3 +1,5 @@
+This module uses data and endpoints from [django-rest-auth](http://django-rest-auth.readthedocs.io/en/latest/api_endpoints.html)  
+
 ## Build Setup
 
 First need edit nuxt.config.js:
@@ -8,8 +10,10 @@ First need edit nuxt.config.js:
   env: {
     SIGN_IN_PATH: '/auth/login/',
     SIGN_UP_PATH: '/auth/registration/',
-    SIGN_OUT_PATH: '/',
-    RESTORE_PASSWORD_PATH: '/'
+    SIGN_OUT_PATH: '/auth/logout/',
+    VERIFY_EMAIL_PATH: '/auth/registration/verify-email/',
+    RESTORE_PASSWORD_PATH: '/auth/password/reset/',
+    RESTORE_PASSWORD_CONFIRM_PATH: '/auth/password/reset/confirm/'
   },
 
 ```
