@@ -1,7 +1,8 @@
 export const state = () => ({
   user: null,
   loading: false,
-  error: null
+  error: null,
+  successMessages: null
 })
 
 export const getters = {
@@ -34,6 +35,9 @@ export const mutations = {
   },
   clearError (state) {
     state.error = null
+  },
+  setSuccessMessages (state, payload) {
+    state.successMessages = payload
   }
 }
 
@@ -49,8 +53,11 @@ export const actions = {
       password1: payload.password,
       password2: payload.confirmPassword
     })
-      .then(user => {
+      .then(() => {
         commit('setLoading', false)
+        let message = 'further actions have been sent to the email you specified'
+        commit('setSuccessMessages', message)
+        this.$router.push('/')
       })
       .catch(error => {
         commit('setLoading', false)
