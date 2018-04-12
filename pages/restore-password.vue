@@ -41,7 +41,7 @@
 </template>
 
 <script>
-  import Alert from '@/components/Shared/Alert'
+  import Alert from '@/components/Shared/Alerts/Error'
 
   export default {
     components: {

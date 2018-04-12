@@ -2,24 +2,21 @@ export const state = () => ({
   user: null,
   loading: false,
   error: null,
-  successMessages: null
+  success: null
 })
 
 export const getters = {
   user (state) {
     return state.user
   },
-  orders (state) {
-    return state.orders
-  },
-  totalPages (state) {
-    return state.totalPages
-  },
   loading (state) {
     return state.loading
   },
   error (state) {
     return state.error
+  },
+  success (state) {
+    return state.success
   }
 }
 
@@ -36,8 +33,11 @@ export const mutations = {
   clearError (state) {
     state.error = null
   },
-  setSuccessMessages (state, payload) {
-    state.successMessages = payload
+  setSuccess (state, payload) {
+    state.success = payload
+  },
+  clearSuccess (state) {
+    state.success = null
   }
 }
 
@@ -55,8 +55,7 @@ export const actions = {
     })
       .then(() => {
         commit('setLoading', false)
-        let message = 'further actions have been sent to the email you specified'
-        commit('setSuccessMessages', message)
+        commit('setSuccess', ['Further actions have been sent to the email you specified.'])
         this.$router.push('/')
       })
       .catch(error => {
@@ -85,9 +84,6 @@ export const actions = {
         commit('setError', error)
       })
   },
-  clearError ({commit}) {
-    commit('clearError')
-  },
   signUserOut ({commit}) {
     commit('setLoading', true)
     commit('clearError')
@@ -113,6 +109,7 @@ export const actions = {
     })
       .then(() => {
         commit('setLoading', false)
+        commit('setSuccess', ['Email verified. You can log in.'])
         this.$router.push('/')
       })
       .catch(error => {
@@ -130,6 +127,7 @@ export const actions = {
     })
       .then(() => {
         commit('setLoading', false)
+        commit('setSuccess', ['Further actions have been sent to the email you specified.'])
         this.$router.push('/')
       })
       .catch(error => {
@@ -150,11 +148,18 @@ export const actions = {
     })
       .then(() => {
         commit('setLoading', false)
+        commit('setSuccess', ['New password was set.'])
         this.$router.push('/')
       })
       .catch(error => {
         commit('setLoading', false)
         commit('setError', error)
       })
+  },
+  clearError ({commit}) {
+    commit('clearError')
+  },
+  clearSuccess ({commit}) {
+    commit('clearSuccess')
   }
 }

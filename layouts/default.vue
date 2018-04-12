@@ -63,6 +63,16 @@
     </v-toolbar>
     <v-content class="grey lighten-3">
       <v-container>
+        <v-layout row v-if="success">
+          <v-flex xs12>
+            <alert
+              @dismissed="onDismissed"
+              :text="message"
+              v-for="(message, key) in success"
+              :key="key"
+            ></alert>
+          </v-flex>
+        </v-layout>
         <nuxt />
       </v-container>
     </v-content>
@@ -85,7 +95,12 @@
 </template>
 
 <script>
+  import Alert from '@/components/Shared/Alerts/Success'
+
   export default {
+    components: {
+      Alert
+    },
     data () {
       return {
         clipped: true,
@@ -114,12 +129,18 @@
       },
       isGuest () {
         return this.$store.getters.user === null || this.$store.getters.user === undefined
+      },
+      success () {
+        return this.$store.getters.success
       }
     },
     methods: {
       signUserOut () {
         this.$store.dispatch('signUserOut')
         this.$router.push('/signin')
+      },
+      onDismissed () {
+        this.$store.dispatch('clearSuccess')
       }
     }
   }
