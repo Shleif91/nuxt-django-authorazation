@@ -1,7 +1,7 @@
 {
   "name": "transportation",
   "version": "1.0.0",
-  "description": "Cargo transportation",
+  "description": "Nuxtjs auth for django rest",
   "author": "Shleif91 <shyherpunk@gmail.com>",
   "private": true,
   "scripts": {

@@ -109,6 +109,7 @@
         }
       },
       error (values) {
+        console.log(values)
         if (values !== null) {
           for (let value in values.response.data) {
             this.errors[value] = values.response.data[value]
@@ -129,7 +130,3 @@
     }
   }
 </script>
-
-<style scoped>
-
-</style>

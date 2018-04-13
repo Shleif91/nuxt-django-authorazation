@@ -72,10 +72,10 @@ export const actions = {
       username: payload.username,
       password: payload.password
     })
-      .then(user => {
+      .then(() => {
         commit('setLoading', false)
         const newUser = {
-          id: user.uid
+          username: payload.username
         }
         commit('setUser', newUser)
       })
