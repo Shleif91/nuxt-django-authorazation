@@ -1,3 +1,5 @@
+import { setUserInformation, unsetUserInformation } from '~/utils/auth'
+
 export const state = () => ({
   user: null,
   loading: false,
@@ -72,12 +74,17 @@ export const actions = {
       username: payload.username,
       password: payload.password
     })
-      .then(() => {
+      .then(res => {
         commit('setLoading', false)
         const newUser = {
-          username: payload.username
+          username: payload.username,
+          token: res.data.key
         }
         commit('setUser', newUser)
+        setUserInformation({
+          token: res.data.key,
+          username: payload.username
+        })
       })
       .catch(error => {
         commit('setLoading', false)
@@ -93,6 +100,7 @@ export const actions = {
       .then(() => {
         commit('setLoading', false)
         commit('setUser', null)
+        unsetUserInformation()
       })
       .catch(error => {
         commit('setLoading', false)
@@ -161,5 +169,12 @@ export const actions = {
   },
   clearSuccess ({commit}) {
     commit('clearSuccess')
+  },
+  restoreUser ({commit}, payload) {
+    const newUser = {
+      username: payload.username,
+      token: payload.key
+    }
+    commit('setUser', newUser)
   }
 }
